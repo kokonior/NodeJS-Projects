@@ -5,14 +5,12 @@ const delay = require('delay');
 (async  () => {
 	
 	var nomer  = readLineSync.question('INPUT RESI : ')
-
 	const options = { waituntill: 'networkidle2' }
   	const browser = await puppeteer.launch({
   		headless: false,
   	});
  	const pages = await browser.pages();
-    const page = pages[0];
-
+    	const page = pages[0];
  	await page.goto('https://resi.id/lacak-resi-jnt', options);
   	const res1 = await page.$('#input-single')
   	await res1.type(nomer)
@@ -26,5 +24,6 @@ const delay = require('delay');
 	}else{
 		console.log('gagal')
 	};
-  await browser.close()
+	console.log('selesai')
+  	await browser.close()
 })();
