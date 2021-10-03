@@ -23,6 +23,8 @@ const delay = require('delay');
 	console.log('gud')
 	if  (page.url() == 'https://resi.id/lacak-resi-jnt' ){
 		console.log('manteb)
-	}
+	}else{
+		console.log('gagal')
+	};
   await browser.close()
 })();
