@@ -20,6 +20,9 @@ const delay = require('delay');
   	const selector = '#input-single-btn'
 	await page.evaluate((selector) => document.querySelector(selector).click(), selector);
 	await delay(3000)
-	console.log('finish')
+	console.log('gud')
+	if  (page.url() == 'https://resi.id/lacak-resi-jnt' ){
+		console.log('manteb)
+	}
   await browser.close()
 })();
