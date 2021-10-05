@@ -1,12 +1,8 @@
-let randomstring = require("randomstring");
+const crypto = require("crypto");
+const id = crypto.randomBytes(20).toString('hex');
+console.log('Password:')
+console.log(id)
 
-randomstring.generate({
-    length: 20,
-    charset: 'custom'
-});
-
-console.log(randomstring.generate())
-
-// Uses Npm Package: https://www.npmjs.com/package/randomstring
-// Able To Change The Length Of The Password To Any Length You Want
+// Uses Crypto
+// Able To Change The Length To Whatever You Want
 // Generates Password In Command Line
