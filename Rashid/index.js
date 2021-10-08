@@ -112,3 +112,72 @@ function yta(url) {
         } else reject('URL INVALID')
     })
 }
+
+//youtube search
+async function ytsr(query) {
+    let link = /youtube\.com\/results\?search_query=/.test(query) ? query : ('https://youtube.com/results?search_query=' + encodeURIComponent(query))
+    let res = await fetch(link)
+    let html = await res.text()
+    let data = new Function('return ' + /var ytInitialData = (.+)/.exec(html)[1])()
+    let lists = data.contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents[0].itemSectionRenderer.contents
+    let formatList = {
+        query,
+        link,
+        items: []
+    }
+    for (let list of lists) {
+        let type = {
+            videoRenderer: 'video',
+            shelfRenderer: 'playlist',
+            radioRenderer: 'live',
+            channelRenderer: 'channel',
+            showingResultsForRenderer: 'typo',
+            horizontalCardListRenderer: 'suggestionCard',
+        }[Object.keys(list)[0]] || ''
+        let content = list[Object.keys(list)[0]] || {}
+        if (content) {
+            switch (type) {
+                case 'typo':
+                    formatList.correctQuery = content.correctedQuery.runs[0].text
+                    break
+                case 'video':
+                    formatList.items.push({
+                        type,
+                        title: content.title.runs[0].text.replace('â€’', '‒'),
+                        views: content.viewCountText.simpleText,
+                        description: content.descriptionSnippet ? content.descriptionSnippet.runs[0].text.replace('Â ...', ' ...') : '',
+                        duration: content.lengthText ? [content.lengthText.simpleText, content.lengthText.accessibility.accessibilityData.label] : ['', ''],
+                        thumbnail: content.thumbnail.thumbnails,
+                        link: 'https://youtu.be/' + content.videoId,
+                        videoId: content.videoId,
+                        author: {
+                            name: content.ownerText.runs[0].text,
+                            link: content.ownerText.runs[0].navigationEndpoint.commandMetadata.webCommandMetadata.url,
+                            thumbnail: content.channelThumbnailWithLinkRenderer ? content.channelThumbnailWithLinkRenderer.thumbnail.thumbnails : [],
+                            verified: content.ownerBadges && /BADGE_STYLE_TYPE_VERIFIED/.test(content.ownerBadges[0].metadataBadgeRenderer.style) ? /BADGE_STYLE_TYPE_VERIFIED_ARTIST/.test(content.ownerBadges[0].metadataBadgeRenderer.style) ? 'artist' : true : false
+                        }
+                    })
+                    break
+                case 'channel':
+                    formatList.items.push({
+                        type,
+                        title: content.title ? content.title.simpleText.replace('â€’', '‒') : '',
+                        description: content.descriptionSnippet ? content.descriptionSnippet.runs[0].text.replace('Â ...', ' ...') : '',
+                        videoCount: content.videoCountText ? content.videoCountText.runs[0].text : '',
+                        thumbnail: content.thumbnail.thumbnails,
+                        subscriberCount: content.subscriberCountText ? content.subscriberCountText.simpleText.replace('Â ', ' ') : '',
+                        link: 'https://youtube.com' + content.navigationEndpoint.commandMetadata.webCommandMetadata.url,
+                        verified: content.ownerBadges && /BADGE_STYLE_TYPE_VERIFIED/.test(content.ownerBadges[0].metadataBadgeRenderer.style) ? /BADGE_STYLE_TYPE_VERIFIED_ARTIST/.test(content.ownerBadges[0].metadataBadgeRenderer.style) ? 'artist' : true : false
+                    })
+                    break
+                case 'playlist':
+                    formatList.items.push({
+                        type,
+                        title: content.title.simpleText.replace('â€’', '‒'),
+                    })
+                    break
+            }
+        }
+    }
+    return formatList
+} 
