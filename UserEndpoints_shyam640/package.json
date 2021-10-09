@@ -1,0 +1,25 @@
+{
+  "name": "userendpoint",
+  "version": "1.0.0",
+  "description": "This is test of user login endpoint",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index",
+    "dev": "env-cmd -f ./config/dev.env nodemon src/index",
+    "test": "env-cmd -f ./config/test.env jest --watch --runInBand"
+  },
+  "author": "its_shyam640",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "env-cmd": "^10.1.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.3",
+    "validate": "^5.1.0",
+    "validator": "^13.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
