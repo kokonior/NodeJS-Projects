@@ -20,7 +20,7 @@ const delay = require('delay');
 	await delay(3000)
 	console.log('gud')
 	if  (page.url() == 'https://resi.id/lacak-resi-jnt' ){
-		console.log('manteb)
+		console.log('manteb')
 	}else{
 		console.log('gagal')
 	};
