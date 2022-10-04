@@ -1,0 +1,46 @@
+<html>
+<style>	
+	table {
+		border-collapse: collapse;
+	}
+	td {
+		width: 80px;
+		height: 80px;
+		border: 1px solid #000;
+		text-align: center;
+		
+	}
+	#reset {
+		display: none;
+	}
+</style>
+<script type="text/javascript" src="connection.js"></script>
+<script type="text/javascript" src="board.js"></script>
+<script type="text/javascript" src="game.js"></script>
+<body>
+	<div id="message"></div>
+	<table id="board">
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<input type="button" id="reset" value="Play another" />
+<script>
+var table = document.getElementById('board');
+var game = new Game(table);
+game.run();
+</script>
+</body>
+</html>
