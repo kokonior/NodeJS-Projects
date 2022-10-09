@@ -53,7 +53,7 @@ const login = `https://accounts.google.com/`;
     await page.type(`#identifierId`, email)
     await delay(3000)
     await page.click(`#identifierNext > div > button > span`)
-    await delay(4000)
+    await delay(5000)
     await page.type(`#password > div.aCsJod.oJeWuf > div > div.Xb9hP > input`, pass)
     await page.click(`#passwordNext > div > button `)
     await page.waitForSelector(`#yDmH0d > c-wiz > div > div:nth-child(2) > div > c-wiz > c-wiz > div > div.s7iwrf.gMPiLc.Kdcijb > div > div > header > h1`)
