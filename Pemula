@@ -1,0 +1,11 @@
+git clone --depth 1 git://github.com/joyent/node.git  
+ cd node  
+ git checkout v0.4.11  
+ export JOBS=2  
+ mkdir ~/local  
+ ./configure --prefix=$HOME/local/node  
+ make  
+ make install  
+ echo 'export PATH=$HOME/local/node/bin:$PATH'    >> ~/.profile  
+ echo 'export NODE_PATH=$HOME/local/node:$HOME/local/node/lib/node_modules'    >> ~/.profile  
+ source ~/.profile
