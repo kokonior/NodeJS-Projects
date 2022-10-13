@@ -1,19 +1,13 @@
-const mongoose = require('mongoose');
-const db = 'mongoURI'; //Replace the mongoURI with MongoDB URI of your database
+const data = [
+  { id: 1, name: "john" },
+  { id: 2, name: "doe" },
+];
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(db, {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true,
-    });
-    console.log('MongoDB Connected');
-  } catch (err) {
-    console.error(err.message);
-    process.exit(1);
-  }
-};
-
-module.exports = connectDB;
+(() => {
+  console.log(
+    data.reduce((obj, item) => {
+      obj[item.id] = item;
+      return obj;
+    }, {})
+  );
+})();
