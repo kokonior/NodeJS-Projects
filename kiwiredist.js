@@ -1,36 +1,39 @@
-new Vue({
-  el:'#app',
-  data:{
-      image:''
-  },
-
-  methods:{
-    onFileChange(e){
-      var files=e.target.files || e.dataTransfer.files;
-      if(!files.length)
-          return;
-      this.createImage(files[0]);
-
-      },
-    createImage(file){
-        var image = new Image();
-        var reader = new FileReader();
-        var vm=this;
-        reader.onload=(e)=>{
-              vm.image=e.target.result;
-        };
-        reader.readAsDataURL(file);
-    },
-
-    removeImage:function(e){
-      this.image='';
-    }
+class ListNode {
+  constructor(val, next = null) {
+    
+    this.val = val;
+    this.next = next;
   }
-})
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Sta
+}
+
+const linkedList = [5, 4, 3, 2, 1].reduce((acc, val) => new ListNode(val, acc), null);
+
+
+const printList = (head) => {
+  if(!head) {
+    return;
+  }
+
+  console.log(head.val);
+  printList(head.next);
+}
+
+// --------- solution -----------
+
+var reverseList = function(head) {
+  let prev = null;
+  let current = head;
+  
+  while(current) {
+    let nextTemp = current.next;
+    current.next = prev;
+    prev = current;
+    current = nextTemp;
+  }
+  
+  return prev;
+};
+
+printList(linkedList);
+console.log('after reverse')
+printList(reverseList(linkedList))
