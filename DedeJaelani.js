@@ -1,36 +1,26 @@
-new Vue({
-  el:'#app',
-  data:{
-      image:''
-  },
+function pl() {
+    let str = document.getElementById("str").value;
+    let ot = document.getElementById("ot");
 
-  methods:{
-    onFileChange(e){
-      var files=e.target.files || e.dataTransfer.files;
-      if(!files.length)
-          return;
-      this.createImage(files[0]);
+    let vowels = ["a", "e", "i", "o", "u"];
 
-      },
-    createImage(file){
-        var image = new Image();
-        var reader = new FileReader();
-        var vm=this;
-        reader.onload=(e)=>{
-              vm.image=e.target.result;
-        };
-        reader.readAsDataURL(file);
-    },
+    let newStr = "";
+    let stra = str.split(" ");
 
-    removeImage:function(e){
-      this.image='';
+    for (s in stra) {
+        let ss = stra[s];
+
+        if (vowels.indexOf(ss[0]) > -1) {
+            newStr += " " + ss + "way";
+
+        } else {
+            let firstMatch = ss.match(/[aeiou]/g) || 0;
+            let vowel = ss.indexOf(firstMatch[0]);
+            newStr += " " + ss.substring(vowel) + ss.substring(0, vowel) + "ay";
+        }
     }
-  }
-})
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Sta
+ot.innerHTML = newStr;
+    ot.innerHTML = newStr;
+    ot.innerHTML = newStr;
+    ot.innerHTML = newStr;
+}
