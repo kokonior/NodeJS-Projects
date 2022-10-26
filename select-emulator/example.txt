@@ -1,0 +1,13 @@
+List of devices attached
+emulator-5554   device
+emulator-5554   device
+emulator-5554   device
+emulator-5554   device
+emulator-5554   device
+emulator-5554   device
+emulator-5554   device
+emulator-5554   device
+emulator-5554   device
+emulator-5554   device
+emulator-5554   device
+
